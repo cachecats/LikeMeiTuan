@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/menuIconStyle"
+            android:src="@drawable/selector_icon_menu_home" />
+
+        <TextView
+            style="@style/menuTextStyle"
+            android:text="首页" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/menuIconStyle"
+            android:src="@drawable/selector_icon_menu_nearby" />
+
+        <TextView
+            style="@style/menuTextStyle"
+            android:text="附近" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/menuIconStyle"
+            android:src="@drawable/selector_icon_menu_discover" />
+
+        <TextView
+            style="@style/menuTextStyle"
+            android:text="发现" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/menuIconStyle"
+            android:src="@drawable/selector_icon_menu_order" />
+
+        <TextView
+            style="@style/menuTextStyle"
+            android:text="订单" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/menuIconStyle"
+            android:src="@drawable/selector_icon_menu_mine" />
+
+        <TextView
+            style="@style/menuTextStyle"
+            android:text="我的" />
+    </LinearLayout>
+
+
+</LinearLayout>
