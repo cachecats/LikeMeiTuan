@@ -1,14 +1,17 @@
-package com.cachecats.meituan.widget;
+package com.cachecats.meituan.widget.bottomtab;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.cachecats.meituan.R;
+import com.cachecats.meituan.base.BaseFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +33,12 @@ public class CustomBottomTabWidget extends LinearLayout {
     LinearLayout llMenuOrder;
     @BindView(R.id.ll_menu_mine)
     LinearLayout llMenuMine;
+    @BindView(R.id.vp_tab_widget)
+    ViewPager viewPager;
+
+    private FragmentManager mFragmentManager;
+    private List<BaseFragment> mFragmentList;
+    private TabPagerAdapter mAdapter;
 
     public CustomBottomTabWidget(Context context) {
         this(context, null, 0);
@@ -43,30 +52,85 @@ public class CustomBottomTabWidget extends LinearLayout {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.widget_custom_bottom_tab, this);
         ButterKnife.bind(view);
+
+        //设置默认的选中项
+        selectTab(MenuTab.HOME);
+
     }
 
+    /**
+     * 外部调用初始化，传入必要的参数
+     *
+     * @param fm
+     */
+    public void init(FragmentManager fm, List<BaseFragment> fragmentList) {
+        mFragmentManager = fm;
+        mFragmentList = fragmentList;
+        initViewPager();
+    }
+
+    /**
+     * 初始化 ViewPager
+     */
+    private void initViewPager() {
+        mAdapter = new TabPagerAdapter(mFragmentManager, mFragmentList);
+        viewPager.setAdapter(mAdapter);
+    }
+
+    /**
+     * 点击事件集合
+     */
     @OnClick({R.id.ll_menu_home_page, R.id.ll_menu_nearby, R.id.ll_menu_discover, R.id.ll_menu_order, R.id.ll_menu_mine})
     public void onViewClicked(View view) {
-        //先将所有tab取消选中，再单独设置要选中的tab
-        unCheckedAll();
+
         switch (view.getId()) {
             case R.id.ll_menu_home_page:
-                llMenuHome.setActivated(true);
+                selectTab(MenuTab.HOME);
                 break;
             case R.id.ll_menu_nearby:
-                llMenuNearby.setActivated(true);
+                selectTab(MenuTab.NEARBY);
                 break;
             case R.id.ll_menu_discover:
-                llMenuDiscover.setActivated(true);
+                selectTab(MenuTab.DISCOVER);
                 break;
             case R.id.ll_menu_order:
-                llMenuOrder.setActivated(true);
+                selectTab(MenuTab.ORDER);
                 break;
             case R.id.ll_menu_mine:
-                llMenuMine.setActivated(true);
+                selectTab(MenuTab.MINE);
                 break;
         }
     }
+
+    /**
+     * 设置 Tab 的选中状态
+     *
+     * @param tab 要选中的标签
+     */
+    public void selectTab(MenuTab tab) {
+
+        //先将所有tab取消选中，再单独设置要选中的tab
+        unCheckedAll();
+
+        switch (tab) {
+            case HOME:
+                llMenuHome.setActivated(true);
+                break;
+            case NEARBY:
+                llMenuNearby.setActivated(true);
+                break;
+            case DISCOVER:
+                llMenuDiscover.setActivated(true);
+                break;
+            case ORDER:
+                llMenuOrder.setActivated(true);
+                break;
+            case MINE:
+                llMenuMine.setActivated(true);
+        }
+
+    }
+
 
     //让所有tab都取消选中
     private void unCheckedAll() {
@@ -77,8 +141,10 @@ public class CustomBottomTabWidget extends LinearLayout {
         llMenuMine.setActivated(false);
     }
 
-    //tab的枚举类型
-    private enum MenuTab{
+    /**
+     * tab的枚举类型
+     */
+    public enum MenuTab {
         HOME,
         NEARBY,
         DISCOVER,

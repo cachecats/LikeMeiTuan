@@ -5,15 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cachecats.meituan.MainActivity">
+    tools:context="com.cachecats.meituan.app.MainActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_home"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <com.cachecats.meituan.widget.CustomBottomTabWidget
+    <com.cachecats.meituan.widget.bottomtab.CustomBottomTabWidget
         android:id="@+id/tabWidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
