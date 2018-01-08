@@ -8,6 +8,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/ll_menu_home_page"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -15,15 +16,18 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_menu_home"
             style="@style/menuIconStyle"
             android:src="@drawable/selector_icon_menu_home" />
 
         <TextView
+            android:id="@+id/tv_menu_home"
             style="@style/menuTextStyle"
             android:text="首页" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_menu_nearby"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -31,15 +35,18 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_menu_nearby"
             style="@style/menuIconStyle"
             android:src="@drawable/selector_icon_menu_nearby" />
 
         <TextView
+            android:id="@+id/tv_menu_nearby"
             style="@style/menuTextStyle"
             android:text="附近" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_menu_discover"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -47,15 +54,18 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_menu_discover"
             style="@style/menuIconStyle"
             android:src="@drawable/selector_icon_menu_discover" />
 
         <TextView
+            android:id="@+id/tv_menu_discover"
             style="@style/menuTextStyle"
             android:text="发现" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_menu_order"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -63,15 +73,18 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_menu_order"
             style="@style/menuIconStyle"
             android:src="@drawable/selector_icon_menu_order" />
 
         <TextView
+            android:id="@+id/tv_menu_order"
             style="@style/menuTextStyle"
             android:text="订单" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_menu_mine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -79,10 +92,12 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_menu_mine"
             style="@style/menuIconStyle"
             android:src="@drawable/selector_icon_menu_mine" />
 
         <TextView
+            android:id="@+id/tv_menu_mine"
             style="@style/menuTextStyle"
             android:text="我的" />
     </LinearLayout>
