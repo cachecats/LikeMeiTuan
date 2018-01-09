@@ -9,6 +9,7 @@ import com.youth.banner.loader.ImageLoader;
 
 /**
  * Created by solo on 2018/1/9.
+ * Banner 框架的图片加载器
  */
 
 public class GlideImageLoader extends ImageLoader {
