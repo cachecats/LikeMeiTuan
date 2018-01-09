@@ -75,6 +75,42 @@ public class CustomBottomTabWidget extends LinearLayout {
     private void initViewPager() {
         mAdapter = new TabPagerAdapter(mFragmentManager, mFragmentList);
         viewPager.setAdapter(mAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //将ViewPager与下面的tab关联起来
+                switch (position) {
+                    case 0:
+                        selectTab(MenuTab.HOME);
+                        break;
+                    case 1:
+                        selectTab(MenuTab.NEARBY);
+                        break;
+                    case 2:
+                        selectTab(MenuTab.DISCOVER);
+                        break;
+                    case 3:
+                        selectTab(MenuTab.ORDER);
+                        break;
+                    case 4:
+                        selectTab(MenuTab.MINE);
+                        break;
+                    default:
+                        selectTab(MenuTab.HOME);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     /**
@@ -86,18 +122,24 @@ public class CustomBottomTabWidget extends LinearLayout {
         switch (view.getId()) {
             case R.id.ll_menu_home_page:
                 selectTab(MenuTab.HOME);
+                //使ViewPager跟随tab点击事件滑动
+                viewPager.setCurrentItem(0);
                 break;
             case R.id.ll_menu_nearby:
                 selectTab(MenuTab.NEARBY);
+                viewPager.setCurrentItem(1);
                 break;
             case R.id.ll_menu_discover:
                 selectTab(MenuTab.DISCOVER);
+                viewPager.setCurrentItem(2);
                 break;
             case R.id.ll_menu_order:
                 selectTab(MenuTab.ORDER);
+                viewPager.setCurrentItem(3);
                 break;
             case R.id.ll_menu_mine:
                 selectTab(MenuTab.MINE);
+                viewPager.setCurrentItem(4);
                 break;
         }
     }
@@ -108,7 +150,6 @@ public class CustomBottomTabWidget extends LinearLayout {
      * @param tab 要选中的标签
      */
     public void selectTab(MenuTab tab) {
-
         //先将所有tab取消选中，再单独设置要选中的tab
         unCheckedAll();
 
