@@ -36,12 +36,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
+        //构造Fragment的集合
         fragmentList = new ArrayList<>();
         fragmentList.add(new HomeFragment());
         fragmentList.add(new NearbyFragment());
         fragmentList.add(new DiscoverFragment());
         fragmentList.add(new OrderFragment());
         fragmentList.add(new MineFragment());
+        //初始化CustomBottomTabWidget
         tabWidget.init(getSupportFragmentManager(), fragmentList);
     }
 }
