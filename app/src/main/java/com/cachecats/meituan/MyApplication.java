@@ -3,6 +3,9 @@ package com.cachecats.meituan;
 import android.app.Application;
 import android.content.Context;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
 /**
  * Created by solo on 2018/1/7.
  */
@@ -16,6 +19,7 @@ public class MyApplication extends Application{
         super.onCreate();
 
         mContext = getApplicationContext();
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
     }
 

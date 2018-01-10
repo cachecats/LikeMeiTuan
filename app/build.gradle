@@ -21,6 +21,12 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    //支持Java8特性
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -49,5 +55,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //Banner
     implementation 'com.youth.banner:banner:1.4.10'
+    //Logger
+    implementation 'com.orhanobut:logger:2.1.1'
 
 }
