@@ -1,9 +1,6 @@
 package com.cachecats.meituan.app.home;
 
-import android.arch.lifecycle.MethodCallsLogger;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,21 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.base.BaseFragment;
-import com.cachecats.meituan.utils.CommonUtils;
+import com.cachecats.meituan.di.DIHelper;
 import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by solo on 2018/1/8.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements HomeFragmentContract.View {
 
     @BindView(R.id.home_banner)
     Banner banner;
@@ -42,8 +36,10 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.ll_big_module_fragment_home)
     LinearLayout llBigModule;
 
-    private List<Integer> mBannerImages;
     private Context mContext;
+
+    @Inject
+    HomeFragmentContract.Presenter mPresenter;
 
     //大模块的图片数组
     private int[] bigModuleDrawables = {
@@ -65,6 +61,9 @@ public class HomeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_home, null);
         //绑定 ButterKnife
         ButterKnife.bind(this, view);
+
+//        DIHelper.getActivityComponent().inject(this);
+
         return view;
     }
 
@@ -72,8 +71,8 @@ public class HomeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
-        initBanner();
-        initBigModule();
+//        initBanner();
+//        initBigModule();
     }
 
     @Override
@@ -84,26 +83,31 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         //增加banner的体验
         banner.stopAutoPlay();
     }
 
-    private void initBanner() {
-        //设置图片集合
-        mBannerImages = new ArrayList<>();
-        mBannerImages.add(R.mipmap.banner1);
-        mBannerImages.add(R.mipmap.banner2);
-        mBannerImages.add(R.mipmap.banner3);
-        mBannerImages.add(R.mipmap.banner4);
-        mBannerImages.add(R.mipmap.banner5);
-        mBannerImages.add(R.mipmap.banner6);
 
+    @Override
+    public void addViewToBigModuleLayout(IconTitleView iconTitleView) {
+        // 往根布局上添加View
+        llBigModule.addView(iconTitleView);
+    }
+
+    @Override
+    public void initBanner() {
         //设置banner的各种属性
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new GlideImageLoader())
-                .setImages(mBannerImages)
+                .setImages(mPresenter.getBannerImages())
 //                .setBannerAnimation(Transformer.Default)
                 .isAutoPlay(true)
                 .setDelayTime(3000)
@@ -112,7 +116,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     /**
-     * 初始化banner下面的几个大模块入口
+     * 初始化 banner下面的几个大模块入口
      */
     private void initBigModule() {
         for (int i = 0; i < 5; i++) {
@@ -132,9 +136,7 @@ public class HomeFragment extends BaseFragment {
                 Logger.d(bigMudoleTitles[finalI]);
                 ToastUtils.show(bigMudoleTitles[finalI]);
             });
-
         }
-
     }
 
 

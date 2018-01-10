@@ -1,4 +1,4 @@
-package com.cachecats.meituan.app.home;
+package com.cachecats.meituan.app.mine;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,12 +14,12 @@ import com.cachecats.meituan.base.BaseFragment;
  * Created by solo on 2018/1/8.
  */
 
-public class DiscoverFragment extends BaseFragment {
+public class MineFragment extends BaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_discover, null);
+        View view = inflater.inflate(R.layout.fragment_mine, null);
         return view;
 
     }
