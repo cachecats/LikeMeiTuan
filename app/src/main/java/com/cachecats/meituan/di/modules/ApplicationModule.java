@@ -36,13 +36,9 @@ public class ApplicationModule {
         return application.getApplicationContext();
     }
 
-//    @Provides
-//    public HomeFragmentContract.Presenter providePresenter(HomeFragmentPresenter presenter){
-//        return presenter;
-//    }
-
     @Provides
-    public HomeFragmentContract.View provideView(HomeFragment fragment){
-        return fragment;
+    HomeFragmentContract.Presenter providePresenter(HomeFragmentPresenter presenter){
+        return presenter;
     }
+
 }

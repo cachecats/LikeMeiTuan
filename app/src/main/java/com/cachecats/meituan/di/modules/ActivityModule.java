@@ -20,6 +20,6 @@ public class ActivityModule {
 
     @Provides
     public Activity provideActivity(){
-        return activity;
+        return this.activity;
     }
 }

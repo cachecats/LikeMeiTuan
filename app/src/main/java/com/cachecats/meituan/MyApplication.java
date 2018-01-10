@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.cachecats.meituan.di.components.ApplicationComponent;
 import com.cachecats.meituan.di.components.DaggerApplicationComponent;
+import com.cachecats.meituan.di.modules.ApplicationModule;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -15,18 +16,23 @@ import com.orhanobut.logger.Logger;
 public class MyApplication extends Application {
 
     private static Context mContext;
-    private static ApplicationComponent mApplicationComponent;
+    private static MyApplication application;
+    private ApplicationComponent mApplicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+        application = this;
         mContext = getApplicationContext();
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         //Dagger注入
-        mApplicationComponent = DaggerApplicationComponent.builder().build();
+        mApplicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
         mApplicationComponent.inject(this);
+
     }
 
     /**
@@ -39,13 +45,17 @@ public class MyApplication extends Application {
     }
 
 
+    private ApplicationComponent getComponent(){
+        return mApplicationComponent;
+    }
+
     /**
      * 获取 ApplicationComponent
      *
      * @return
      */
     public static ApplicationComponent getApplicationComponent() {
-        return mApplicationComponent;
+        return application.getComponent();
     }
 
 }

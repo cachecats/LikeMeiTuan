@@ -9,15 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.cachecats.meituan.MyApplication;
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.base.BaseFragment;
-import com.cachecats.meituan.di.DIHelper;
+import com.cachecats.meituan.di.components.DaggerFragmentComponent;
 import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by solo on 2018/1/8.
  */
 
-public class HomeFragment extends BaseFragment implements HomeFragmentContract.View {
+public class HomeFragment extends BaseFragment implements HomeFragmentContract.View{
 
     @BindView(R.id.home_banner)
     Banner banner;
@@ -37,9 +41,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     LinearLayout llBigModule;
 
     private Context mContext;
-
-    @Inject
-    HomeFragmentContract.Presenter mPresenter;
 
     //大模块的图片数组
     private int[] bigModuleDrawables = {
@@ -55,6 +56,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
             "美食", "电影/演出", "酒店住宿", "休闲娱乐", "外卖"
     };
 
+
+    @Inject
+    HomeFragmentContract.Presenter presenter;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +68,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         //绑定 ButterKnife
         ButterKnife.bind(this, view);
 
-//        DIHelper.getActivityComponent().inject(this);
+        DaggerFragmentComponent.builder()
+                .applicationComponent(MyApplication.getApplicationComponent())
+                .build()
+                .inject(this);
+
+        presenter.setFragment(this);
 
         return view;
     }
@@ -71,8 +82,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
-//        initBanner();
-//        initBigModule();
+        initBanner();
+        initBigModule();
+
     }
 
     @Override
@@ -85,7 +97,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
     }
 
     @Override
@@ -96,18 +107,19 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     }
 
 
-    @Override
-    public void addViewToBigModuleLayout(IconTitleView iconTitleView) {
-        // 往根布局上添加View
-        llBigModule.addView(iconTitleView);
-    }
-
-    @Override
     public void initBanner() {
+        List<Integer> mBannerImages = new ArrayList<>();
+        mBannerImages.add(R.mipmap.banner1);
+        mBannerImages.add(R.mipmap.banner2);
+        mBannerImages.add(R.mipmap.banner3);
+        mBannerImages.add(R.mipmap.banner4);
+        mBannerImages.add(R.mipmap.banner5);
+        mBannerImages.add(R.mipmap.banner6);
+
         //设置banner的各种属性
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new GlideImageLoader())
-                .setImages(mPresenter.getBannerImages())
+                .setImages(mBannerImages)
 //                .setBannerAnimation(Transformer.Default)
                 .isAutoPlay(true)
                 .setDelayTime(3000)
@@ -134,9 +146,16 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
             int finalI = i;
             iconTitleView.setOnClickListener((view) -> {
                 Logger.d(bigMudoleTitles[finalI]);
-                ToastUtils.show(bigMudoleTitles[finalI]);
+//                ToastUtils.show(bigMudoleTitles[finalI]);
+
+                presenter.showMessage();
             });
         }
+    }
+
+    @Override
+    public void showToast(String message){
+        ToastUtils.show(message);
     }
 
 

@@ -2,6 +2,7 @@ package com.cachecats.meituan.app;
 
 import android.os.Bundle;
 
+import com.cachecats.meituan.MyApplication;
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.app.discover.DiscoverFragment;
 import com.cachecats.meituan.app.home.HomeFragment;
@@ -11,6 +12,8 @@ import com.cachecats.meituan.app.order.OrderFragment;
 import com.cachecats.meituan.base.BaseActivity;
 import com.cachecats.meituan.base.BaseFragment;
 import com.cachecats.meituan.di.DIHelper;
+import com.cachecats.meituan.di.components.DaggerActivityComponent;
+import com.cachecats.meituan.di.modules.ActivityModule;
 import com.cachecats.meituan.widget.bottomtab.CustomBottomTabWidget;
 
 import java.util.ArrayList;
@@ -31,7 +34,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        DIHelper.getActivityComponent().inject(this);
+        DaggerActivityComponent.builder()
+                .applicationComponent(MyApplication.getApplicationComponent())
+                .activityModule(new ActivityModule(this))
+                .build().inject(this);
 
         //初始化
         init();

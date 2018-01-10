@@ -13,35 +13,27 @@ import javax.inject.Inject;
  * Created by solo on 2018/1/10.
  */
 
-public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
+public class HomeFragmentPresenter implements HomeFragmentContract.Presenter{
 
-    private HomeFragmentContract.View mHomeFragmentView;
+    private HomeFragmentContract.View mFragment;
 
     @Inject
-    public HomeFragmentPresenter(HomeFragmentContract.View homeFragmentView) {
-        mHomeFragmentView = homeFragmentView;
+    public HomeFragmentPresenter() {
+
+    }
+
+    @Override
+    public void setFragment(HomeFragmentContract.View fragment){
+        mFragment = fragment;
+    }
+
+    @Override
+    public void showMessage(){
+        mFragment.showToast("Dagger2 --");
     }
 
     @Override
     public void start() {
-        Logger.d("Presenter onStart-------");
-    }
 
-    @Override
-    public void createIconTitleViews() {
-
-    }
-
-    @Override
-    public List<Integer> getBannerImages() {
-        //设置图片集合
-        List<Integer> mBannerImages = new ArrayList<>();
-        mBannerImages.add(R.mipmap.banner1);
-        mBannerImages.add(R.mipmap.banner2);
-        mBannerImages.add(R.mipmap.banner3);
-        mBannerImages.add(R.mipmap.banner4);
-        mBannerImages.add(R.mipmap.banner5);
-        mBannerImages.add(R.mipmap.banner6);
-        return mBannerImages;
     }
 }

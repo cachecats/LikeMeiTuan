@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.cachecats.meituan.MyApplication;
+import com.cachecats.meituan.app.home.HomeFragment;
 import com.cachecats.meituan.app.home.HomeFragmentContract;
+import com.cachecats.meituan.app.home.HomeFragmentPresenter;
 import com.cachecats.meituan.di.modules.ActivityModule;
 import com.cachecats.meituan.di.modules.ApplicationModule;
 
@@ -17,7 +19,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, ActivityModule.class})
+@Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
 
     void inject(MyApplication application);
@@ -26,9 +28,9 @@ public interface ApplicationComponent {
 
     Context context();
 
-    HomeFragmentContract.Presenter homeFragmentPresenter();
+    HomeFragmentPresenter presenter();
 
-    HomeFragmentContract.View homeFragmentContract();
+    HomeFragmentContract.Presenter homeFragmentContractPresenter();
 
 
 }

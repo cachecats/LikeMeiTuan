@@ -13,10 +13,9 @@ import dagger.Component;
  */
 
 @Scopes.Activity
-@Component(modules = {ApplicationModule.class}, dependencies = {ApplicationComponent.class})
+@Component(modules = {ActivityModule.class}, dependencies = {ApplicationComponent.class})
 public interface ActivityComponent {
 
     void inject(MainActivity activity);
 
-    void inject(HomeFragment fragment);
 }
