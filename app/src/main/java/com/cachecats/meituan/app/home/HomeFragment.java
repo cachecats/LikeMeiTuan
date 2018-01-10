@@ -41,6 +41,7 @@ public class HomeFragment extends BaseFragment {
     private List<Drawable> mBannerImages;
     private Context mContext;
 
+    //大模块的图片数组
     private int[] bigModuleDrawables = {
             R.drawable.ic_vector_discover_normal,
             R.drawable.ic_vector_home_normal,
@@ -49,6 +50,7 @@ public class HomeFragment extends BaseFragment {
             R.drawable.ic_vector_nearby_normal,
     };
 
+    //大模块的标题数组
     private String[] bigMudoleTitles = {
             "美食", "电影/演出", "酒店住宿", "休闲娱乐", "外卖"
     };
@@ -109,19 +111,15 @@ public class HomeFragment extends BaseFragment {
      * 初始化banner下面的几个大模块入口
      */
     private void initBigModule() {
-
-        // TODO 添加间距的逻辑有问题，待解决
-        int screenWidth = CommonUtils.getScreenWidth(mContext);
-        int marginLeft = screenWidth / (bigModuleDrawables.length + 1);
         for (int i = 0; i < 5; i++) {
-
             IconTitleView iconTitleView = IconTitleView.newInstance(mContext, bigModuleDrawables[i], bigMudoleTitles[i]);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(marginLeft, 0, 0, 0);
+            // 设置宽高和权重weight，使每个View占用相同的宽度
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             iconTitleView.setLayoutParams(lp);
-
+            // 往根布局上添加View
             llBigModule.addView(iconTitleView);
-
         }
     }
 }
