@@ -13,14 +13,22 @@ import android.widget.LinearLayout;
 
 import com.cachecats.meituan.MyApplication;
 import com.cachecats.meituan.R;
+import com.cachecats.meituan.app.home.adapter.LittleModuleAdapter;
+import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.base.BaseFragment;
 import com.cachecats.meituan.di.components.DaggerFragmentComponent;
 import com.cachecats.meituan.utils.GlideImageLoader;
+import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.cachecats.meituan.widget.decoration.DividerGridItemDecoration;
+import com.cachecats.meituan.widget.decoration.HomeGridDecoration;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -73,15 +81,28 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
      * 初始化小模块的RecyclerView
      */
     private void initLittleModuleRecyclerView() {
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5);
         //设置LayoutManager
         littleModuleRecyclerView.setLayoutManager(gridLayoutManager);
         //设置分割器
-        littleModuleRecyclerView.addItemDecoration(new DividerGridItemDecoration(getActivity()));
+        littleModuleRecyclerView.addItemDecoration(new HomeGridDecoration(12));
         //设置动画
         littleModuleRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        //设置Adapter
 
+        //设置Adapter
+        List<IconTitleModel> iconTitleModels = presenter.getIconTitleModels();
+        LittleModuleAdapter littleModuleAdapter = new LittleModuleAdapter(
+                R.layout.view_icon_title_small, iconTitleModels);
+
+        littleModuleRecyclerView.setAdapter(littleModuleAdapter);
+        //设置item点击事件
+        littleModuleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.show(iconTitleModels.get(position).getTitle());
+            }
+        });
 
     }
 

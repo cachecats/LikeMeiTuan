@@ -5,6 +5,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.cachecats.meituan.R;
+import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.base.BasePresenter;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
  * Created by solo on 2018/1/10.
  */
 
-public class HomeFragmentPresenter implements HomeFragmentContract.Presenter{
+public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     //大模块的图片数组
     private static final int[] bigModuleDrawables = {
@@ -44,7 +45,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter{
     }
 
     @Override
-    public void setContractView(HomeFragmentContract.View fragment){
+    public void setContractView(HomeFragmentContract.View fragment) {
         mFragment = fragment;
     }
 
@@ -79,6 +80,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter{
 
     /**
      * 获取Banner的图片资源
+     *
      * @return
      */
     @Override
@@ -91,6 +93,22 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter{
         mBannerImages.add(R.mipmap.banner5);
         mBannerImages.add(R.mipmap.banner6);
         return mBannerImages;
+    }
+
+    @Override
+    public List<IconTitleModel> getIconTitleModels() {
+        List<IconTitleModel> datas = new ArrayList<>();
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_ktv_s, "KTV"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_toursaround_s, "周边游"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_transportation_s, "机票/火车票"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_beauty_s, "丽人/美发"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_travel_s, "旅游/出行"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_fitness_s, "跑腿/代购"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_amusement_s, "景点/门票"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_bath_s, "温泉"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_lifeservice_s, "榛果民宿"));
+        datas.add(new IconTitleModel(R.mipmap.homepage_icon_light_more_s, "全部分类"));
+        return datas;
     }
 
 
