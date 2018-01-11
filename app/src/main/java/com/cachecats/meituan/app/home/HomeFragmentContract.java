@@ -13,11 +13,12 @@ import java.util.List;
 public interface HomeFragmentContract {
 
     interface View {
-        void showToast(String message);
+
+        void addViewToBigModule(IconTitleView iconTitleView);
     }
 
-    interface Presenter extends BasePresenter{
-        void setFragment(View view);
-        void showMessage();
+    interface Presenter extends BasePresenter<View>{
+
+        List<Integer> getBannerImages();
     }
 }

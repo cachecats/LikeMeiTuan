@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    //RecyclerView
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
 
     //RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
@@ -63,5 +65,8 @@ dependencies {
 
     //Logger
     implementation 'com.orhanobut:logger:2.1.1'
+
+    //BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
 }
