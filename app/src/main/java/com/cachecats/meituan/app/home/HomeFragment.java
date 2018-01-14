@@ -16,18 +16,16 @@ import com.cachecats.meituan.R;
 import com.cachecats.meituan.app.home.adapter.LittleModuleAdapter;
 import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.base.BaseFragment;
-import com.cachecats.meituan.di.components.DaggerFragmentComponent;
+import com.cachecats.meituan.di.components.DaggerActivityComponent;
 import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
-import com.cachecats.meituan.widget.decoration.DividerGridItemDecoration;
 import com.cachecats.meituan.widget.decoration.HomeGridDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,7 +58,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         //绑定 ButterKnife
         ButterKnife.bind(this, view);
 
-        DaggerFragmentComponent.builder()
+        DaggerActivityComponent.builder()
                 .applicationComponent(MyApplication.getApplicationComponent())
                 .build()
                 .inject(this);

@@ -18,4 +18,6 @@ public interface ActivityComponent {
 
     void inject(MainActivity activity);
 
+    void inject(HomeFragment fragment);
+
 }

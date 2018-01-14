@@ -21,13 +21,6 @@ public interface Scopes {
     @Documented
     @Scope
     @Retention(RetentionPolicy.RUNTIME)
-    @interface Fragment{
-    }
-
-
-    @Documented
-    @Scope
-    @Retention(RetentionPolicy.RUNTIME)
     @interface Service{
     }
 

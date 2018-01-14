@@ -1,7 +1,5 @@
 package com.cachecats.meituan.utils;
 
-import android.content.Context;
-
 import com.cachecats.meituan.MyApplication;
 
 /**

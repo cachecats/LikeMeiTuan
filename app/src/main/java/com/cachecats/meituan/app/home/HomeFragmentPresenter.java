@@ -95,6 +95,10 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
         return mBannerImages;
     }
 
+    /**
+     * 获取包含两行小模块的图标、标题的对象的集合
+     * @return
+     */
     @Override
     public List<IconTitleModel> getIconTitleModels() {
         List<IconTitleModel> datas = new ArrayList<>();
