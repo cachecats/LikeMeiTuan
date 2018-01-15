@@ -19,6 +19,7 @@ import com.cachecats.meituan.base.BaseFragment;
 import com.cachecats.meituan.di.components.DaggerActivityComponent;
 import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
+import com.cachecats.meituan.widget.HomeAdsView;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.cachecats.meituan.widget.decoration.HomeGridDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -46,6 +47,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     LinearLayout llBigModule;
     @BindView(R.id.recyclerview_little_module)
     RecyclerView littleModuleRecyclerView;
+    @BindView(R.id.home_ads_view)
+    HomeAdsView homeAdsView;
 
     @Inject
     HomeFragmentContract.Presenter presenter;
@@ -73,6 +76,31 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         super.onActivityCreated(savedInstanceState);
         initBanner();
         initLittleModuleRecyclerView();
+        initAds();
+    }
+
+    private void initAds() {
+        homeAdsView.setOnAdsClickListener(new HomeAdsView.OnAdsClickListener() {
+            @Override
+            public void onAds1Click() {
+                ToastUtils.show("Ads1");
+            }
+
+            @Override
+            public void onAds2Click() {
+                ToastUtils.show("Ads2");
+            }
+
+            @Override
+            public void onAds3Click() {
+                ToastUtils.show("Ads3");
+            }
+
+            @Override
+            public void onAds4Click() {
+                ToastUtils.show("Ads4");
+            }
+        });
     }
 
     /**
@@ -123,7 +151,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         //增加banner的体验
         banner.stopAutoPlay();
     }
-
 
     public void initBanner() {
         //设置banner的各种属性
