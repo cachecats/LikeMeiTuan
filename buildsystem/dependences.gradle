@@ -1,0 +1,40 @@
+ext {
+
+    //Android
+    androidBuildToolsVersion = "27.0.3"
+    androidMinSdkVersion = 18
+    androidTargetSdkVersion = 27
+    androidCompileSdkVersion = 27
+
+    //Libraries
+    recyclerViewVersion = "27.0.2"
+    rxjava2Version = "2.1.8"
+    rxandroidVersion = "2.0.1"
+    daggerVersion = "2.14.1"
+    glideVersion = "4.5.0"
+    butterKnifeVersion = "8.8.1"
+    bannerVersion = "1.4.10"
+    loggerVersion = "2.1.1"
+    baseRecyclerViewAdapterHelperVersion = "2.9.30"
+    dbflowVersion = "4.2.4"
+
+    app = [
+            recyclerView                 : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            rxjava                       : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
+            rxandroid                    : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
+            dagger                       : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler               : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            glide                        : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideCompiler                : "com.github.bumptech.glide:compiler:${glideVersion}",
+            buterKnife                   : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterKnifeCompiler          : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            banner                       : "com.youth.banner:banner:${bannerVersion}",
+            logger                       : "com.orhanobut:logger:${loggerVersion}",
+            baseRecyclerViewAdapterHelper: "com.github.CymChad:BaseRecyclerViewAdapterHelper:${baseRecyclerViewAdapterHelperVersion}",
+            dbflowProcessor              : "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflowVersion}",
+            dbflowCore                   : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflowVersion}",
+            dbflow                       : "com.github.Raizlabs.DBFlow:dbflow:${dbflowVersion}",
+            dbflowRx2                    : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
+    ]
+
+}
