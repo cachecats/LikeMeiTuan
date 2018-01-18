@@ -35,7 +35,6 @@ dependencies {
 
     def appDependence = rootProject.ext.app
 
-    implementation project(':common')
     implementation project(':data')
     implementation project(':domin')
     implementation fileTree(include: ['*.jar'], dir: 'libs')

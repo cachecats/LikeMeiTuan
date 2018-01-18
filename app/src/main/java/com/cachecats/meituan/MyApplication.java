@@ -8,6 +8,7 @@ import com.cachecats.meituan.di.components.DaggerApplicationComponent;
 import com.cachecats.meituan.di.modules.ApplicationModule;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 /**
  * Created by solo on 2018/1/7.
@@ -32,6 +33,9 @@ public class MyApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .build();
         mApplicationComponent.inject(this);
+
+        //初始化数据库
+        FlowManager.init(this);
 
     }
 

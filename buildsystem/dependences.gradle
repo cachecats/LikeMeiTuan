@@ -37,4 +37,16 @@ ext {
             dbflowRx2                    : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
     ]
 
+    data = [
+            rxjava                       : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
+            rxandroid                    : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
+            dagger                       : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler               : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            logger                       : "com.orhanobut:logger:${loggerVersion}",
+            dbflowProcessor              : "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflowVersion}",
+            dbflowCore                   : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflowVersion}",
+            dbflow                       : "com.github.Raizlabs.DBFlow:dbflow:${dbflowVersion}",
+            dbflowRx2                    : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
+    ]
+
 }
