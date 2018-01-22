@@ -3,6 +3,8 @@ package com.cachecats.meituan.di.components;
 import android.app.Application;
 import android.content.Context;
 
+import com.cachecats.data.shop.mapper.ShopMapper;
+import com.cachecats.domin.shop.repository.ShopRepository;
 import com.cachecats.meituan.MyApplication;
 import com.cachecats.meituan.app.home.HomeFragment;
 import com.cachecats.meituan.app.home.HomeFragmentContract;
@@ -31,6 +33,10 @@ public interface ApplicationComponent {
     HomeFragmentPresenter presenter();
 
     HomeFragmentContract.Presenter homeFragmentContractPresenter();
+
+    ShopMapper shopMapper();
+
+    ShopRepository shopRepository();
 
 
 }

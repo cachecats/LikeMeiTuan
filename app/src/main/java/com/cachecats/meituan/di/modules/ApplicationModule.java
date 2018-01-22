@@ -3,6 +3,8 @@ package com.cachecats.meituan.di.modules;
 import android.app.Application;
 import android.content.Context;
 
+import com.cachecats.data.shop.repository.ShopRepositoryImpl;
+import com.cachecats.domin.shop.repository.ShopRepository;
 import com.cachecats.meituan.app.home.HomeFragment;
 import com.cachecats.meituan.app.home.HomeFragmentContract;
 import com.cachecats.meituan.app.home.HomeFragmentPresenter;
@@ -37,8 +39,16 @@ public class ApplicationModule {
     }
 
     @Provides
+    @Singleton
     HomeFragmentContract.Presenter providePresenter(HomeFragmentPresenter presenter){
         return presenter;
     }
+
+    @Provides
+    @Singleton
+    ShopRepository provideShopRepository(ShopRepositoryImpl impl){
+        return impl;
+    }
+
 
 }
