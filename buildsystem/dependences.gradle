@@ -49,4 +49,12 @@ ext {
             dbflowRx2                    : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
     ]
 
+    domin = [
+            rxjava                       : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
+            rxandroid                    : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
+            dagger                       : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler               : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            logger                       : "com.orhanobut:logger:${loggerVersion}",
+    ]
+
 }

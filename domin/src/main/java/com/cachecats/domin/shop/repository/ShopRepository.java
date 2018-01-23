@@ -10,5 +10,15 @@ import java.util.List;
 
 public interface ShopRepository {
 
+    /**
+     * 获取所有商店信息
+     */
     List<ShopModel> getAllShops();
+
+    /**
+     * 保存单个商店
+     * @param model
+     * @return
+     */
+    boolean saveShop(ShopModel model);
 }

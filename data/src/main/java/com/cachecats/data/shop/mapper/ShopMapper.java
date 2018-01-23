@@ -3,6 +3,7 @@ package com.cachecats.data.shop.mapper;
 import com.cachecats.data.shop.entity.ShopEntity;
 import com.cachecats.domin.shop.model.ShopModel;
 
+import java.io.OptionalDataException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +40,27 @@ public class ShopMapper {
         model.setServiceScore(entity.serviceScore);
         model.setTel(entity.tel);
         return model;
+    }
+
+    public ShopEntity toEntity(ShopModel model){
+        ShopEntity entity = new ShopEntity();
+        entity.address = model.getAddress();
+        entity.id = model.getId();
+        entity.introduction = model.getIntroduction();
+        entity.logo = model.getLogo();
+        entity.name = model.getName();
+        entity.perConsume = model.getPerConsume();
+        entity.recommendDishes = model.getRecommendDishes();
+        entity.serviceScore = model.getServiceScore();
+        entity.tel = model.getTel();
+        return entity;
+    }
+
+    public List<ShopEntity> toEntities(List<ShopModel> models){
+        List<ShopEntity> entities = new ArrayList<>();
+        for (ShopModel model : models) {
+            entities.add(toEntity(model));
+        }
+        return entities;
     }
 }

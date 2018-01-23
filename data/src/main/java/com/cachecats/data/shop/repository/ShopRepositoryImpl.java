@@ -28,4 +28,10 @@ public class ShopRepositoryImpl implements ShopRepository {
         List<ShopEntity> shopEntities = SQLite.select().from(ShopEntity.class).queryList();
         return mapper.toModels(shopEntities);
     }
+
+    @Override
+    public boolean saveShop(ShopModel model) {
+        ShopEntity entity = mapper.toEntity(model);
+        return entity.save();
+    }
 }

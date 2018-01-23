@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.cachecats.domin.shop.model.ShopModel;
+import com.cachecats.domin.shop.service.ShopService;
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.base.BasePresenter;
@@ -15,6 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by solo on 2018/1/10.
@@ -38,10 +46,12 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     private HomeFragmentContract.View mFragment;
     private Context mContext;
+    private ShopService service;
 
     @Inject
-    public HomeFragmentPresenter(Context context) {
+    public HomeFragmentPresenter(Context context, ShopService service) {
         mContext = context;
+        this.service = service;
     }
 
     @Override
@@ -52,6 +62,49 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     @Override
     public void start() {
         initBigModule();
+//        mockShopDataToDB();
+        getAllShops();
+    }
+
+    private void getAllShops() {
+        Single<List<ShopModel>> single = service.getAllShops();
+        single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<List<ShopModel>>() {
+//                    @Override
+//                    public void accept(List<ShopModel> shopModels) throws Exception {
+//                        Logger.d(shopModels);
+//                    }
+//                });
+                .subscribe(shopModels -> {
+                    Logger.d(shopModels);
+                });
+    }
+
+
+    //制造商铺信息保存到数据库
+    private void mockShopDataToDB() {
+        for (int i = 0; i < 50; i++) {
+            ShopModel model = new ShopModel();
+            model.setTel("1890028332"+i);
+            model.setServiceScore(4.5f);
+            model.setRecommendDishes("家常豆腐"+i);
+            model.setPerConsume(45+i);
+            model.setName("张三"+i);
+            model.setIntroduction("旺铺欢迎光临");
+            model.setId(i+"");
+            model.setAddress("北辰大道"+i);
+
+            Single<Boolean> single = service.saveShop(model);
+            single.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean aBoolean) throws Exception {
+                            Logger.d("保存结果:" + aBoolean);
+                        }
+                    });
+        }
     }
 
     /**
