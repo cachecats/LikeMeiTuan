@@ -15,6 +15,8 @@ public interface BasePresenter<T> {
     /**
      * 初始化方法
      */
-    void start();
+    void onStart();
+
+    void onDestroy();
 
 }

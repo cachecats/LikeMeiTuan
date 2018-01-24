@@ -21,4 +21,16 @@ public interface ShopRepository {
      * @return
      */
     boolean saveShop(ShopModel model);
+
+    /**
+     * 批量保存
+     * @param models
+     * @return
+     */
+    void saveShops(List<ShopModel> models);
+
+    /**
+     * 清空数据库
+     */
+    void clear();
 }

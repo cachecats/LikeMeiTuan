@@ -1,14 +1,12 @@
 package com.cachecats.meituan.app.home;
 
 import android.content.Context;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.cachecats.domin.shop.model.ShopModel;
 import com.cachecats.domin.shop.service.ShopService;
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.app.home.model.IconTitleModel;
-import com.cachecats.meituan.base.BasePresenter;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.orhanobut.logger.Logger;
@@ -18,10 +16,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -47,6 +45,8 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     private HomeFragmentContract.View mFragment;
     private Context mContext;
     private ShopService service;
+    //用于Rxjava取消订阅
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
     @Inject
     public HomeFragmentPresenter(Context context, ShopService service) {
@@ -60,51 +60,79 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     }
 
     @Override
-    public void start() {
+    public void onStart() {
         initBigModule();
 //        mockShopDataToDB();
+//        clearDB();
         getAllShops();
     }
 
-    private void getAllShops() {
-        Single<List<ShopModel>> single = service.getAllShops();
-        single.subscribeOn(Schedulers.io())
+    @Override
+    public void onDestroy() {
+        // Destroy时取消绑定进来的 Disposable
+        if (mDisposable != null) {
+            mDisposable.clear();
+            mDisposable = null;
+        }
+    }
+
+    //清空数据库
+    private void clearDB() {
+        service.clear()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<List<ShopModel>>() {
-//                    @Override
-//                    public void accept(List<ShopModel> shopModels) throws Exception {
-//                        Logger.d(shopModels);
-//                    }
-//                });
-                .subscribe(shopModels -> {
-                    Logger.d(shopModels);
+                .subscribe(() -> Logger.d("清空数据库完成"));
+    }
+
+    /**
+     * 获取所有的商铺信息
+     */
+    private void getAllShops() {
+        service.getAllShops()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<ShopModel>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        if (d != null) {
+                            mDisposable.add(d);
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(List<ShopModel> shopModels) {
+                        Logger.d(shopModels);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
                 });
     }
 
 
-    //制造商铺信息保存到数据库
+    //mock商铺信息保存到数据库
     private void mockShopDataToDB() {
+        List<ShopModel> models = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             ShopModel model = new ShopModel();
-            model.setTel("1890028332"+i);
+            model.setTel("1890028332" + i);
             model.setServiceScore(4.5f);
-            model.setRecommendDishes("家常豆腐"+i);
-            model.setPerConsume(45+i);
-            model.setName("张三"+i);
+            model.setRecommendDishes("家常豆腐" + i);
+            model.setPerConsume(45 + i);
+            model.setName("张三" + i);
             model.setIntroduction("旺铺欢迎光临");
-            model.setId(i+"");
-            model.setAddress("北辰大道"+i);
-
-            Single<Boolean> single = service.saveShop(model);
-            single.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Boolean>() {
-                        @Override
-                        public void accept(Boolean aBoolean) throws Exception {
-                            Logger.d("保存结果:" + aBoolean);
-                        }
-                    });
+            model.setId(i + "");
+            model.setAddress("北辰大道" + i);
+            model.setLogo("http://omdl1pobo.bkt.clouddn.com/280778059_593d34d31e6ab_BYsp_1497183443.png");
+            models.add(model);
         }
+        //异步批量保存
+        service.saveShops(models)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Logger.d("保存成功-------------"));
     }
 
     /**
@@ -150,6 +178,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     /**
      * 获取包含两行小模块的图标、标题的对象的集合
+     *
      * @return
      */
     @Override

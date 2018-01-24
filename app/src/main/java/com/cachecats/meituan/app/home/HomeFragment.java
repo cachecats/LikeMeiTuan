@@ -142,7 +142,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        presenter.onStart();
     }
 
     @Override
@@ -173,4 +173,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 }
