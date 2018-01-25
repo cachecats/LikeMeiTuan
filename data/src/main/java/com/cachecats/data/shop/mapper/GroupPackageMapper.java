@@ -4,6 +4,7 @@ import com.cachecats.data.shop.entity.GroupPackageEntity;
 import com.cachecats.domin.shop.model.GroupPackageModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,6 +53,10 @@ public class GroupPackageMapper {
 
     public List<GroupPackageEntity> toEntities(List<GroupPackageModel> models) {
         List<GroupPackageEntity> entities = new ArrayList<>();
+        if(models == null || models.isEmpty()){
+            return Collections.emptyList();
+        }
+
         for (GroupPackageModel model : models) {
             entities.add(toEntity(model));
         }

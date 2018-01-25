@@ -7,7 +7,11 @@ import com.cachecats.data.shop.mapper.GroupPackageMapper;
 import com.cachecats.data.shop.mapper.ShopEvaluateMapper;
 import com.cachecats.data.shop.mapper.ShopGroupInfoMapper;
 import com.cachecats.data.shop.mapper.ShopMapper;
+import com.cachecats.domin.shop.repository.GroupPackageRepository;
+import com.cachecats.domin.shop.repository.ShopGroupInfoRepo;
 import com.cachecats.domin.shop.repository.ShopRepository;
+import com.cachecats.domin.shop.service.GroupPackageService;
+import com.cachecats.domin.shop.service.ShopGroupInfoService;
 import com.cachecats.domin.shop.service.ShopService;
 import com.cachecats.meituan.MyApplication;
 import com.cachecats.meituan.app.home.HomeFragment;
@@ -15,6 +19,7 @@ import com.cachecats.meituan.app.home.HomeFragmentContract;
 import com.cachecats.meituan.app.home.HomeFragmentPresenter;
 import com.cachecats.meituan.di.modules.ActivityModule;
 import com.cachecats.meituan.di.modules.ApplicationModule;
+import com.cachecats.meituan.mock.MockUtils;
 
 import javax.inject.Singleton;
 
@@ -50,5 +55,13 @@ public interface ApplicationComponent {
 
     ShopGroupInfoMapper shopGroupInfoMapper();
 
+    GroupPackageRepository groupPackageRepository();
 
+    GroupPackageService groupPackageService();
+
+    MockUtils mockUtils();
+
+    ShopGroupInfoRepo shopGroupInfoRepo();
+
+    ShopGroupInfoService shopGroupInfoService();
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import com.cachecats.meituan.di.components.ApplicationComponent;
 import com.cachecats.meituan.di.components.DaggerApplicationComponent;
 import com.cachecats.meituan.di.modules.ApplicationModule;
+import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -36,6 +37,8 @@ public class MyApplication extends Application {
 
         //初始化数据库
         FlowManager.init(this);
+
+        Stetho.initializeWithDefaults(this);
 
     }
 

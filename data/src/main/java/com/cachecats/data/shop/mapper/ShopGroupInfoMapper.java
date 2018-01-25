@@ -5,6 +5,7 @@ import com.cachecats.domin.shop.model.ShopGroupInfoModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -69,6 +70,10 @@ public class ShopGroupInfoMapper implements Serializable {
 
     public List<ShopGroupInfoEntity> toEntities(List<ShopGroupInfoModel> models) {
         List<ShopGroupInfoEntity> entities = new ArrayList<>();
+        if(models == null || models.isEmpty()){
+            return Collections.emptyList();
+        }
+
         for (ShopGroupInfoModel model : models) {
             entities.add(toEntity(model));
         }

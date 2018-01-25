@@ -3,10 +3,13 @@ package com.cachecats.meituan.app.home;
 import android.content.Context;
 import android.widget.LinearLayout;
 
+import com.cachecats.domin.shop.model.GroupPackageModel;
 import com.cachecats.domin.shop.model.ShopModel;
+import com.cachecats.domin.shop.service.GroupPackageService;
 import com.cachecats.domin.shop.service.ShopService;
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.app.home.model.IconTitleModel;
+import com.cachecats.meituan.mock.MockUtils;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.orhanobut.logger.Logger;
@@ -44,14 +47,23 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     private HomeFragmentContract.View mFragment;
     private Context mContext;
-    private ShopService service;
+    private ShopService shopService;
+    private GroupPackageService groupPackageService;
+    private MockUtils mockUtils;
+
     //用于Rxjava取消订阅
-    private CompositeDisposable mDisposable = new CompositeDisposable();
+    private CompositeDisposable mDisposable;
+
 
     @Inject
-    public HomeFragmentPresenter(Context context, ShopService service) {
+    public HomeFragmentPresenter(Context context,
+                                 ShopService shopService,
+                                 GroupPackageService groupPackageService,
+                                 MockUtils mockUtils) {
         mContext = context;
-        this.service = service;
+        this.shopService = shopService;
+        this.groupPackageService = groupPackageService;
+        this.mockUtils = mockUtils;
     }
 
     @Override
@@ -61,10 +73,15 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     @Override
     public void onStart() {
+
+        mDisposable = new CompositeDisposable();
+
         initBigModule();
-//        mockShopDataToDB();
-//        clearDB();
+//        mockUtils.mockShopDataToDB();
+//        mockUtils.clearShop();
+//        mockUtils.mockGroupPackagesToDB();
         getAllShops();
+//        mockUtils.mockGroupInfoData();
     }
 
     @Override
@@ -76,19 +93,13 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
         }
     }
 
-    //清空数据库
-    private void clearDB() {
-        service.clear()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Logger.d("清空数据库完成"));
-    }
+
 
     /**
      * 获取所有的商铺信息
      */
     private void getAllShops() {
-        service.getAllShops()
+        shopService.getAllShops()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<ShopModel>>() {
@@ -112,28 +123,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     }
 
 
-    //mock商铺信息保存到数据库
-    private void mockShopDataToDB() {
-        List<ShopModel> models = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            ShopModel model = new ShopModel();
-            model.setTel("1890028332" + i);
-            model.setServiceScore(4.5f);
-            model.setRecommendDishes("家常豆腐" + i);
-            model.setPerConsume(45 + i);
-            model.setName("张三" + i);
-            model.setIntroduction("旺铺欢迎光临");
-            model.setId(i + "");
-            model.setAddress("北辰大道" + i);
-            model.setLogo("http://omdl1pobo.bkt.clouddn.com/280778059_593d34d31e6ab_BYsp_1497183443.png");
-            models.add(model);
-        }
-        //异步批量保存
-        service.saveShops(models)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Logger.d("保存成功-------------"));
-    }
+
 
     /**
      * 初始化banner下面的5个大模块

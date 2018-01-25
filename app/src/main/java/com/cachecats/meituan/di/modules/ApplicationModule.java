@@ -3,9 +3,12 @@ package com.cachecats.meituan.di.modules;
 import android.app.Application;
 import android.content.Context;
 
+import com.cachecats.data.shop.repository.GroupPackageRepoImpl;
+import com.cachecats.data.shop.repository.ShopGroupInfoRepoImpl;
 import com.cachecats.data.shop.repository.ShopRepositoryImpl;
+import com.cachecats.domin.shop.repository.GroupPackageRepository;
+import com.cachecats.domin.shop.repository.ShopGroupInfoRepo;
 import com.cachecats.domin.shop.repository.ShopRepository;
-import com.cachecats.meituan.app.home.HomeFragment;
 import com.cachecats.meituan.app.home.HomeFragmentContract;
 import com.cachecats.meituan.app.home.HomeFragmentPresenter;
 
@@ -29,24 +32,36 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public Application provideApplication(){
+    public Application provideApplication() {
         return application;
     }
 
     @Provides
-    public Context provideContext(){
+    public Context provideContext() {
         return application.getApplicationContext();
     }
 
     @Provides
     @Singleton
-    HomeFragmentContract.Presenter providePresenter(HomeFragmentPresenter presenter){
+    HomeFragmentContract.Presenter providePresenter(HomeFragmentPresenter presenter) {
         return presenter;
     }
 
     @Provides
     @Singleton
-    ShopRepository provideShopRepository(ShopRepositoryImpl impl){
+    ShopRepository provideShopRepository(ShopRepositoryImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    @Singleton
+    GroupPackageRepository provideGroupPackageRepository(GroupPackageRepoImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    @Singleton
+    ShopGroupInfoRepo provideShopGroupInfoRepo(ShopGroupInfoRepoImpl impl) {
         return impl;
     }
 

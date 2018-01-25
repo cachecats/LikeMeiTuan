@@ -61,5 +61,6 @@ dependencies {
     implementation appDependence.dbflowRx2
     implementation appDependence.dbflow
     annotationProcessor appDependence.dbflowProcessor
+    implementation appDependence.stetho
 
 }

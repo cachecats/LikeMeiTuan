@@ -17,6 +17,7 @@ ext {
     loggerVersion = "2.1.1"
     baseRecyclerViewAdapterHelperVersion = "2.9.30"
     dbflowVersion = "4.2.4"
+    stethoVersion = "1.5.0"
 
     app = [
             recyclerView                 : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
@@ -35,26 +36,27 @@ ext {
             dbflowCore                   : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflowVersion}",
             dbflow                       : "com.github.Raizlabs.DBFlow:dbflow:${dbflowVersion}",
             dbflowRx2                    : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
+            stetho                       : "com.facebook.stetho:stetho:${stethoVersion}",
     ]
 
     data = [
-            rxjava                       : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
-            rxandroid                    : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
-            dagger                       : "com.google.dagger:dagger:${daggerVersion}",
-            daggerCompiler               : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            logger                       : "com.orhanobut:logger:${loggerVersion}",
-            dbflowProcessor              : "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflowVersion}",
-            dbflowCore                   : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflowVersion}",
-            dbflow                       : "com.github.Raizlabs.DBFlow:dbflow:${dbflowVersion}",
-            dbflowRx2                    : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
+            rxjava         : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
+            rxandroid      : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
+            dagger         : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            logger         : "com.orhanobut:logger:${loggerVersion}",
+            dbflowProcessor: "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflowVersion}",
+            dbflowCore     : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflowVersion}",
+            dbflow         : "com.github.Raizlabs.DBFlow:dbflow:${dbflowVersion}",
+            dbflowRx2      : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
     ]
 
     domin = [
-            rxjava                       : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
-            rxandroid                    : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
-            dagger                       : "com.google.dagger:dagger:${daggerVersion}",
-            daggerCompiler               : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            logger                       : "com.orhanobut:logger:${loggerVersion}",
+            rxjava        : "io.reactivex.rxjava2:rxjava:${rxjava2Version}",
+            rxandroid     : "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}",
+            dagger        : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+            logger        : "com.orhanobut:logger:${loggerVersion}",
     ]
 
 }

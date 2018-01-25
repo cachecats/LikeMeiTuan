@@ -14,5 +14,5 @@ public class MeituanDB {
     //数据库名称
     public final static String NAME = "MeituanDB";
     //版本号
-    public final static int VERSION = 1;
+    public final static int VERSION = 2;
 }
