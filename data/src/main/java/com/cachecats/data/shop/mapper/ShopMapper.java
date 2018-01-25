@@ -16,8 +16,11 @@ import javax.inject.Inject;
 
 public class ShopMapper {
 
+    private ShopGroupInfoMapper shopGroupInfoMapper;
+
     @Inject
-    public ShopMapper() {
+    public ShopMapper(ShopGroupInfoMapper shopGroupInfoMapper) {
+        this.shopGroupInfoMapper = shopGroupInfoMapper;
     }
 
     public List<ShopModel>toModels(List<ShopEntity> entities){
@@ -39,6 +42,7 @@ public class ShopMapper {
         model.setRecommendDishes(entity.recommendDishes);
         model.setServiceScore(entity.serviceScore);
         model.setTel(entity.tel);
+        model.setGroupInfos(shopGroupInfoMapper.toModels(entity.getGroupInfos()));
         return model;
     }
 
@@ -53,6 +57,7 @@ public class ShopMapper {
         entity.recommendDishes = model.getRecommendDishes();
         entity.serviceScore = model.getServiceScore();
         entity.tel = model.getTel();
+        entity.groupInfos = shopGroupInfoMapper.toEntities(model.getGroupInfos());
         return entity;
     }
 

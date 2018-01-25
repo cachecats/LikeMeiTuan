@@ -1,11 +1,14 @@
 package com.cachecats.domin.shop.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by solo on 2018/1/18.
  * 商店对应的 model
  */
 
-public class ShopModel {
+public class ShopModel implements Serializable{
 
     private String id;
     private String name;
@@ -16,6 +19,7 @@ public class ShopModel {
     private float perConsume;
     private String introduction;
     private String recommendDishes;
+    private List<ShopGroupInfoModel> groupInfos;
 
     @Override
     public String toString() {
@@ -29,7 +33,16 @@ public class ShopModel {
                 ", perConsume=" + perConsume +
                 ", introduction='" + introduction + '\'' +
                 ", recommendDishes='" + recommendDishes + '\'' +
+                ", groupInfos=" + groupInfos +
                 '}';
+    }
+
+    public List<ShopGroupInfoModel> getGroupInfos() {
+        return groupInfos;
+    }
+
+    public void setGroupInfos(List<ShopGroupInfoModel> groupInfos) {
+        this.groupInfos = groupInfos;
     }
 
     public String getId() {

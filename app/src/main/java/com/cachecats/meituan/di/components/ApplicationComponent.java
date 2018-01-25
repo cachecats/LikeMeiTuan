@@ -3,6 +3,9 @@ package com.cachecats.meituan.di.components;
 import android.app.Application;
 import android.content.Context;
 
+import com.cachecats.data.shop.mapper.GroupPackageMapper;
+import com.cachecats.data.shop.mapper.ShopEvaluateMapper;
+import com.cachecats.data.shop.mapper.ShopGroupInfoMapper;
 import com.cachecats.data.shop.mapper.ShopMapper;
 import com.cachecats.domin.shop.repository.ShopRepository;
 import com.cachecats.domin.shop.service.ShopService;
@@ -40,6 +43,12 @@ public interface ApplicationComponent {
     ShopRepository shopRepository();
 
     ShopService shopService();
+
+    ShopEvaluateMapper shopEvaluateMapper();
+
+    GroupPackageMapper groupPackageMapper();
+
+    ShopGroupInfoMapper shopGroupInfoMapper();
 
 
 }

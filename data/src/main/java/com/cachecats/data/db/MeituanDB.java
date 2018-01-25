@@ -9,7 +9,7 @@ import com.raizlabs.android.dbflow.annotation.Database;
  */
 
 
-@Database(name = MeituanDB.NAME, version = MeituanDB.VERSION)
+@Database(name = MeituanDB.NAME, version = MeituanDB.VERSION, foreignKeyConstraintsEnforced = true)
 public class MeituanDB {
     //数据库名称
     public final static String NAME = "MeituanDB";

@@ -2,9 +2,13 @@ package com.cachecats.data.shop.entity;
 
 import com.cachecats.data.db.MeituanDB;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import java.util.List;
 
 /**
  * Created by solo on 2018/1/18.
@@ -52,5 +56,16 @@ public class ShopEntity extends BaseModel {
     @Column
     public String recommendDishes;
 
+    public List<ShopGroupInfoEntity> groupInfos;
+
+    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "groupInfos")
+    public List<ShopGroupInfoEntity> getGroupInfos() {
+        if (groupInfos == null || groupInfos.isEmpty()) {
+            groupInfos = SQLite.select().from(ShopGroupInfoEntity.class)
+                    .where(ShopGroupInfoEntity_Table.shopId.eq(id))
+                    .queryList();
+        }
+        return groupInfos;
+    }
 
 }

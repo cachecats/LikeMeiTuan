@@ -71,13 +71,13 @@ public class ShopGroupInfoEntity extends BaseModel {
     public List<GroupPackageEntity> groupPackages;
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "groupPackages")
-    public List<GroupPackageEntity> getGroupPackages(){
-        if(groupPackages == null || groupPackages.isEmpty()){
-//            groupPackages = SQLite.select().from(GroupPackageEntity.class)
-//                    .where(ShopGroupInfoEntity_Table.)
-
+    public List<GroupPackageEntity> getGroupPackages() {
+        if (groupPackages == null || groupPackages.isEmpty()) {
+            groupPackages = SQLite.select().from(GroupPackageEntity.class)
+                    .where(GroupPackageEntity_Table.groupId.eq(groupId))
+                    .queryList();
         }
-        return null;
+        return groupPackages;
     }
 
 
