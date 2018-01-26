@@ -14,12 +14,11 @@ import com.cachecats.domin.shop.service.GroupPackageService;
 import com.cachecats.domin.shop.service.ShopGroupInfoService;
 import com.cachecats.domin.shop.service.ShopService;
 import com.cachecats.meituan.MyApplication;
-import com.cachecats.meituan.app.home.HomeFragment;
 import com.cachecats.meituan.app.home.HomeFragmentContract;
 import com.cachecats.meituan.app.home.HomeFragmentPresenter;
-import com.cachecats.meituan.di.modules.ActivityModule;
 import com.cachecats.meituan.di.modules.ApplicationModule;
 import com.cachecats.meituan.mock.MockUtils;
+import com.solo.common.rxjava.CloseableRxServiceExecutor;
 
 import javax.inject.Singleton;
 
@@ -64,4 +63,6 @@ public interface ApplicationComponent {
     ShopGroupInfoRepo shopGroupInfoRepo();
 
     ShopGroupInfoService shopGroupInfoService();
+
+    CloseableRxServiceExecutor closeableRxServiceExecutor();
 }

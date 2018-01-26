@@ -13,6 +13,7 @@ import com.cachecats.meituan.mock.MockUtils;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.orhanobut.logger.Logger;
+import com.solo.common.rxjava.CloseableRxServiceExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     private ShopService shopService;
     private GroupPackageService groupPackageService;
     private MockUtils mockUtils;
+    private CloseableRxServiceExecutor executor;
 
     //用于Rxjava取消订阅
     private CompositeDisposable mDisposable;
@@ -59,11 +61,13 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     public HomeFragmentPresenter(Context context,
                                  ShopService shopService,
                                  GroupPackageService groupPackageService,
-                                 MockUtils mockUtils) {
+                                 MockUtils mockUtils,
+                                 CloseableRxServiceExecutor executor) {
         mContext = context;
         this.shopService = shopService;
         this.groupPackageService = groupPackageService;
         this.mockUtils = mockUtils;
+        this.executor = executor;
     }
 
     @Override
@@ -86,11 +90,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 
     @Override
     public void onDestroy() {
-        // Destroy时取消绑定进来的 Disposable
-        if (mDisposable != null) {
-            mDisposable.clear();
-            mDisposable = null;
-        }
+
     }
 
 
@@ -99,30 +99,10 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
      * 获取所有的商铺信息
      */
     private void getAllShops() {
-        shopService.getAllShops()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<ShopModel>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        if (d != null) {
-                            mDisposable.add(d);
-                        }
-                    }
-
-                    @Override
-                    public void onSuccess(List<ShopModel> shopModels) {
-                        Logger.d(shopModels);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
+        executor.execute(shopService.getAllShops(), shopModels -> {
+            Logger.d(shopModels);
+        });
     }
-
-
 
 
     /**
