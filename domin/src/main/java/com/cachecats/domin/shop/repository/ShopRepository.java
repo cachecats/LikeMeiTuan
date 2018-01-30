@@ -16,6 +16,13 @@ public interface ShopRepository {
     List<ShopModel> getAllShops();
 
     /**
+     * 分页获取商店信息
+     * @param pageSize 每页的数据条数
+     * @return
+     */
+    List<ShopModel> getShopsByPage(int pageSize);
+
+    /**
      * 保存单个商店
      * @param model
      * @return

@@ -5,15 +5,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.cachecats.domin.shop.model.ShopModel;
 import com.cachecats.meituan.MyApplication;
 import com.cachecats.meituan.R;
 import com.cachecats.meituan.app.home.adapter.LittleModuleAdapter;
+import com.cachecats.meituan.app.home.adapter.ShopListAdapter;
 import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.base.BaseFragment;
 import com.cachecats.meituan.di.components.DaggerActivityComponent;
@@ -21,12 +24,14 @@ import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.HomeAdsView;
 import com.cachecats.meituan.widget.IconTitleView;
+import com.cachecats.meituan.widget.decoration.DividerItemDecoration;
 import com.cachecats.meituan.widget.decoration.HomeGridDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,13 +50,21 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     //大模块的LinearLayout布局
     @BindView(R.id.ll_big_module_fragment_home)
     LinearLayout llBigModule;
+    //小模块GridView布局
     @BindView(R.id.recyclerview_little_module)
     RecyclerView littleModuleRecyclerView;
+    //4块广告封装成的自定义View
     @BindView(R.id.home_ads_view)
     HomeAdsView homeAdsView;
+    //团购商店列表
+    @BindView(R.id.recycler_view_shops)
+    RecyclerView rvShopList;
 
     @Inject
     HomeFragmentContract.Presenter presenter;
+
+    private ShopListAdapter mShopListAdapter;
+    private List<ShopModel> mShopModels = Collections.emptyList();
 
 
     @Nullable
@@ -77,6 +90,25 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         initBanner();
         initLittleModuleRecyclerView();
         initAds();
+        initShopList();
+    }
+
+    private void initShopList() {
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        rvShopList.setLayoutManager(lm);
+        rvShopList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        rvShopList.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    @Override
+    public void setShopListData(List<ShopModel> shopModels){
+        mShopListAdapter = new ShopListAdapter(getActivity(), R.layout.item_home_shop_list, shopModels);
+        rvShopList.setAdapter(mShopListAdapter);
     }
 
     private void initAds() {

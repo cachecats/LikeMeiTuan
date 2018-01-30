@@ -1,5 +1,6 @@
 package com.cachecats.meituan.app.home;
 
+import com.cachecats.domin.shop.model.ShopModel;
 import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.base.BasePresenter;
 import com.cachecats.meituan.base.BaseView;
@@ -17,6 +18,8 @@ public interface HomeFragmentContract {
     interface View {
 
         void addViewToBigModule(IconTitleView iconTitleView);
+
+        void setShopListData(List<ShopModel> shopModels);
     }
 
     interface Presenter extends BasePresenter<View>{

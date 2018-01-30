@@ -10,5 +10,6 @@
     <color name="dividerColorFA">#fafafa</color>
     <color name="dividerColor999">#999</color>
     <color name="dividerColorF0">#f0f0f0</color>
+    <color name="red">#f00</color>
 
 </resources>

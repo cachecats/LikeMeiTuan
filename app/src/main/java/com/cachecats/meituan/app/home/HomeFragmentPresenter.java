@@ -53,9 +53,6 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     private MockUtils mockUtils;
     private CloseableRxServiceExecutor executor;
 
-    //用于Rxjava取消订阅
-    private CompositeDisposable mDisposable;
-
 
     @Inject
     public HomeFragmentPresenter(Context context,
@@ -78,8 +75,6 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     @Override
     public void onStart() {
 
-        mDisposable = new CompositeDisposable();
-
         initBigModule();
 //        mockUtils.mockShopDataToDB();
 //        mockUtils.clearShop();
@@ -101,6 +96,7 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     private void getAllShops() {
         executor.execute(shopService.getAllShops(), shopModels -> {
             Logger.d(shopModels);
+            mFragment.setShopListData(shopModels);
         });
     }
 

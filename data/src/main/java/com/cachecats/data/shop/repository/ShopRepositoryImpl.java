@@ -35,6 +35,15 @@ public class ShopRepositoryImpl implements ShopRepository {
     }
 
     @Override
+    public List<ShopModel> getShopsByPage(int pageSize) {
+        List<ShopEntity> shopEntities = SQLite.select()
+                .from(ShopEntity.class)
+                .limit(pageSize)
+                .queryList();
+        return mapper.toModels(shopEntities);
+    }
+
+    @Override
     public boolean saveShop(ShopModel model) {
         ShopEntity entity = mapper.toEntity(model);
         return entity.save();

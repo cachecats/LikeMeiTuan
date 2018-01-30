@@ -33,6 +33,16 @@ public class ShopService {
     }
 
     /**
+     * 分页获取商店信息
+     * @param pageSize 每页大小
+     * @return
+     */
+     public Single<List<ShopModel>> getShopsByPage(int pageSize) {
+        return Single.create(emitter -> emitter.onSuccess(repository.getShopsByPage(pageSize)));
+    }
+
+
+    /**
      * 保存单个商店信息
      *
      * @param model
@@ -66,5 +76,6 @@ public class ShopService {
             emitter.onComplete();
         });
     }
+
 
 }
