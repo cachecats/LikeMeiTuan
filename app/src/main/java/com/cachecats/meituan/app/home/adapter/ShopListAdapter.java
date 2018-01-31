@@ -41,7 +41,7 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopModel,BaseViewHolder> 
 
         if(!groupInfos.isEmpty()){
             ShopGroupInfoModel groupInfo = groupInfos.get(0);
-            helper.setText(R.id.tv_price, groupInfo.getCurrentPrice()+"");
+            helper.setText(R.id.tv_price, "¥" + groupInfo.getCurrentPrice());
             //设置原价
             helper.setText(R.id.tv_original_price, "门市价:¥" + groupInfo.getOriginalPrice());
             //已售

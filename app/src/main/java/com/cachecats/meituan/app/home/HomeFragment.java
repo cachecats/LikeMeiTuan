@@ -22,11 +22,16 @@ import com.cachecats.meituan.base.BaseFragment;
 import com.cachecats.meituan.di.components.DaggerActivityComponent;
 import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
+import com.cachecats.meituan.widget.CustomRefreshHeader;
 import com.cachecats.meituan.widget.HomeAdsView;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.cachecats.meituan.widget.decoration.DividerItemDecoration;
 import com.cachecats.meituan.widget.decoration.HomeGridDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -59,6 +64,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     //团购商店列表
     @BindView(R.id.recycler_view_shops)
     RecyclerView rvShopList;
+    //下拉刷新组件
+    @BindView(R.id.smartRefreshLayout_home)
+    SmartRefreshLayout smartRefreshLayout;
 
     @Inject
     HomeFragmentContract.Presenter presenter;
@@ -87,14 +95,37 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        init();
+    }
+
+    private void init() {
         initBanner();
         initLittleModuleRecyclerView();
         initAds();
         initShopList();
+        initSmartRefreshLayout();
+    }
+
+    //初始化下拉刷新控件
+    private void initSmartRefreshLayout() {
+        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(getActivity()));
+        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                Logger.d("onLoadmore");
+                smartRefreshLayout.finishLoadmore(2000, true);
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                Logger.d("onRefresh");
+                smartRefreshLayout.finishRefresh(2000, true);
+            }
+        });
     }
 
     private void initShopList() {
-        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false){
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -103,12 +134,14 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         rvShopList.setLayoutManager(lm);
         rvShopList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         rvShopList.setItemAnimator(new DefaultItemAnimator());
+        mShopListAdapter = new ShopListAdapter(getActivity(), R.layout.item_home_shop_list, mShopModels);
+        mShopListAdapter.setUpFetchEnable(true);
+        rvShopList.setAdapter(mShopListAdapter);
     }
 
     @Override
-    public void setShopListData(List<ShopModel> shopModels){
-        mShopListAdapter = new ShopListAdapter(getActivity(), R.layout.item_home_shop_list, shopModels);
-        rvShopList.setAdapter(mShopListAdapter);
+    public void setShopListData(List<ShopModel> shopModels) {
+        mShopListAdapter.setNewData(shopModels);
     }
 
     private void initAds() {

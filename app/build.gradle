@@ -63,5 +63,6 @@ dependencies {
     implementation appDependence.dbflow
     annotationProcessor appDependence.dbflowProcessor
     implementation appDependence.stetho
+    implementation appDependence.smartRefreshLayout
 
 }

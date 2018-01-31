@@ -37,8 +37,8 @@ public class ShopService {
      * @param pageSize 每页大小
      * @return
      */
-     public Single<List<ShopModel>> getShopsByPage(int pageSize) {
-        return Single.create(emitter -> emitter.onSuccess(repository.getShopsByPage(pageSize)));
+     public Single<List<ShopModel>> getShopsByPage(int page, int pageSize) {
+        return Single.create(emitter -> emitter.onSuccess(repository.getShopsByPage(page, pageSize)));
     }
 
 

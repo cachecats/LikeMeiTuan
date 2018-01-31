@@ -35,10 +35,11 @@ public class ShopRepositoryImpl implements ShopRepository {
     }
 
     @Override
-    public List<ShopModel> getShopsByPage(int pageSize) {
+    public List<ShopModel> getShopsByPage(int page, int pageSize) {
         List<ShopEntity> shopEntities = SQLite.select()
                 .from(ShopEntity.class)
                 .limit(pageSize)
+                .offset(page)
                 .queryList();
         return mapper.toModels(shopEntities);
     }

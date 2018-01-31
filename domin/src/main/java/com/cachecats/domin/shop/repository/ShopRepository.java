@@ -20,7 +20,7 @@ public interface ShopRepository {
      * @param pageSize 每页的数据条数
      * @return
      */
-    List<ShopModel> getShopsByPage(int pageSize);
+    List<ShopModel> getShopsByPage(int page, int pageSize);
 
     /**
      * 保存单个商店

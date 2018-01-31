@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_01" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_02" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_03" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_02" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_05" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_06" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_07" />
+    <item android:duration="50" android:drawable="@drawable/commonui_refreshing_image_frame_06" />
+</animation-list>

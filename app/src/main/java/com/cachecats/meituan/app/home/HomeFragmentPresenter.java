@@ -79,8 +79,9 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 //        mockUtils.mockShopDataToDB();
 //        mockUtils.clearShop();
 //        mockUtils.mockGroupPackagesToDB();
-        getAllShops();
+//        getAllShops();
 //        mockUtils.mockGroupInfoData();
+        getShopsByPage(0, 10);
     }
 
     @Override
@@ -95,6 +96,18 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
      */
     private void getAllShops() {
         executor.execute(shopService.getAllShops(), shopModels -> {
+            Logger.d(shopModels);
+            mFragment.setShopListData(shopModels);
+        });
+    }
+
+    /**
+     * 分页获取商店信息
+     * @param page 当前页
+     * @param pageSize 每页大小
+     */
+    private void getShopsByPage(int page, int pageSize){
+        executor.execute(shopService.getShopsByPage(page, pageSize), shopModels -> {
             Logger.d(shopModels);
             mFragment.setShopListData(shopModels);
         });
