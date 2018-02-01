@@ -22,7 +22,8 @@ import com.cachecats.meituan.base.BaseFragment;
 import com.cachecats.meituan.di.components.DaggerActivityComponent;
 import com.cachecats.meituan.utils.GlideImageLoader;
 import com.cachecats.meituan.utils.ToastUtils;
-import com.cachecats.meituan.widget.CustomRefreshHeader;
+import com.cachecats.meituan.widget.refresh.CustomRefreshFooter;
+import com.cachecats.meituan.widget.refresh.CustomRefreshHeader;
 import com.cachecats.meituan.widget.HomeAdsView;
 import com.cachecats.meituan.widget.IconTitleView;
 import com.cachecats.meituan.widget.decoration.DividerItemDecoration;
@@ -30,6 +31,7 @@ import com.cachecats.meituan.widget.decoration.HomeGridDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.youth.banner.Banner;
@@ -109,19 +111,54 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     //初始化下拉刷新控件
     private void initSmartRefreshLayout() {
         smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new CustomRefreshFooter(getActivity(), "加载中…"));
+        smartRefreshLayout.setEnableScrollContentWhenLoaded(true);//是否在加载完成时滚动列表显示新的内容
+        smartRefreshLayout.setEnableFooterFollowWhenLoadFinished(true);
         smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                Logger.d("onLoadmore");
-                smartRefreshLayout.finishLoadmore(2000, true);
+                presenter.onLoadMore();
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                Logger.d("onRefresh");
-                smartRefreshLayout.finishRefresh(2000, true);
+                presenter.onRefresh();
             }
         });
+    }
+
+    @Override
+    public void finishLoadmore(boolean success) {
+        smartRefreshLayout.finishLoadmore(success);
+    }
+
+    @Override
+    public void finishLoadmoreWithNoMoreData() {
+        smartRefreshLayout.finishLoadmoreWithNoMoreData();
+    }
+
+    @Override
+    public void finishRefresh(boolean success) {
+        smartRefreshLayout.finishRefresh(success);
+    }
+
+    @Override
+    public void resetNoMoreData() {
+        smartRefreshLayout.resetNoMoreData();
+    }
+
+    /**
+     * 加载更多后添加新的数据到RecyclerView
+     * @param shopModels
+     */
+    @Override
+    public void addData2RecyclerView(List<ShopModel> shopModels) {
+        mShopListAdapter.addData(shopModels);
+    }
+
+    @Override
+    public void setRefreshFooter(RefreshFooter footer) {
+        smartRefreshLayout.setRefreshFooter(footer);
     }
 
     private void initShopList() {
@@ -135,8 +172,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         rvShopList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         rvShopList.setItemAnimator(new DefaultItemAnimator());
         mShopListAdapter = new ShopListAdapter(getActivity(), R.layout.item_home_shop_list, mShopModels);
-        mShopListAdapter.setUpFetchEnable(true);
+//        mShopListAdapter.setUpFetchEnable(true);
         rvShopList.setAdapter(mShopListAdapter);
+//        mShopListAdapter.setEmptyView();
     }
 
     @Override

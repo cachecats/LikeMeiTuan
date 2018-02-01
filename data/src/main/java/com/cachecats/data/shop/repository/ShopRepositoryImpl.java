@@ -39,7 +39,7 @@ public class ShopRepositoryImpl implements ShopRepository {
         List<ShopEntity> shopEntities = SQLite.select()
                 .from(ShopEntity.class)
                 .limit(pageSize)
-                .offset(page)
+                .offset(page*pageSize)
                 .queryList();
         return mapper.toModels(shopEntities);
     }

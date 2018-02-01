@@ -3,8 +3,6 @@ package com.cachecats.meituan.app.home;
 import android.content.Context;
 import android.widget.LinearLayout;
 
-import com.cachecats.domin.shop.model.GroupPackageModel;
-import com.cachecats.domin.shop.model.ShopModel;
 import com.cachecats.domin.shop.service.GroupPackageService;
 import com.cachecats.domin.shop.service.ShopService;
 import com.cachecats.meituan.R;
@@ -12,6 +10,7 @@ import com.cachecats.meituan.app.home.model.IconTitleModel;
 import com.cachecats.meituan.mock.MockUtils;
 import com.cachecats.meituan.utils.ToastUtils;
 import com.cachecats.meituan.widget.IconTitleView;
+import com.cachecats.meituan.widget.refresh.CustomRefreshFooter;
 import com.orhanobut.logger.Logger;
 import com.solo.common.rxjava.CloseableRxServiceExecutor;
 
@@ -19,12 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by solo on 2018/1/10.
@@ -52,6 +45,13 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     private GroupPackageService groupPackageService;
     private MockUtils mockUtils;
     private CloseableRxServiceExecutor executor;
+
+    //每页的大小
+    private static final int PAGE_SIZE = 10;
+    //当前是第几页
+    private int mCurrentPage = 0;
+    //是否没有更多数据了
+    private boolean isNoMoreData = false;
 
 
     @Inject
@@ -81,14 +81,14 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
 //        mockUtils.mockGroupPackagesToDB();
 //        getAllShops();
 //        mockUtils.mockGroupInfoData();
-        getShopsByPage(0, 10);
+        getFirstPageShops();
     }
 
     @Override
     public void onDestroy() {
-
+        mCurrentPage = 0;
+        isNoMoreData = false;
     }
-
 
 
     /**
@@ -102,17 +102,62 @@ public class HomeFragmentPresenter implements HomeFragmentContract.Presenter {
     }
 
     /**
-     * 分页获取商店信息
-     * @param page 当前页
-     * @param pageSize 每页大小
+     * 获取首页商店信息
      */
-    private void getShopsByPage(int page, int pageSize){
-        executor.execute(shopService.getShopsByPage(page, pageSize), shopModels -> {
+    private void getFirstPageShops() {
+        executor.execute(shopService.getShopsByPage(0, PAGE_SIZE), shopModels -> {
             Logger.d(shopModels);
             mFragment.setShopListData(shopModels);
         });
     }
 
+
+    @Override
+    public void onLoadMore() {
+        if (isNoMoreData) {
+            return;
+        }
+
+        mCurrentPage++;
+        executor.execute(
+                shopService.getShopsByPage(mCurrentPage, PAGE_SIZE),
+                shopModels -> {
+                    Logger.d(shopModels);
+                    //返回结果为空则说明没有更多数据了
+                    if (shopModels.isEmpty()) {
+                        isNoMoreData = true;
+                        //重置Footer为没有更多数据状态
+                        mFragment.setRefreshFooter(new CustomRefreshFooter(mContext, "没有更多啦"));
+                        mFragment.finishLoadmoreWithNoMoreData();
+                        return;
+                    }
+                    mFragment.addData2RecyclerView(shopModels);
+                    mFragment.finishLoadmore(true);
+                },
+                error -> {
+                    Logger.d(error);
+                    mFragment.finishLoadmore(false);
+                });
+    }
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 0;
+        isNoMoreData = false;
+        mFragment.setRefreshFooter(new CustomRefreshFooter(mContext, "加载中…"));
+        //重置没有更多数据状态
+        mFragment.resetNoMoreData();
+        executor.execute(
+                shopService.getShopsByPage(0, PAGE_SIZE),
+                shopModels -> {
+                    Logger.d(shopModels);
+                    mFragment.setShopListData(shopModels);
+                    mFragment.finishRefresh(true);
+                },
+                error -> {
+                    mFragment.finishRefresh(false);
+                });
+    }
 
     /**
      * 初始化banner下面的5个大模块

@@ -6,6 +6,8 @@ import com.cachecats.meituan.base.BasePresenter;
 import com.cachecats.meituan.base.BaseView;
 import com.cachecats.meituan.widget.HomeAdsView;
 import com.cachecats.meituan.widget.IconTitleView;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.List;
 
@@ -20,6 +22,22 @@ public interface HomeFragmentContract {
         void addViewToBigModule(IconTitleView iconTitleView);
 
         void setShopListData(List<ShopModel> shopModels);
+
+        void finishLoadmore(boolean success);
+
+        void finishLoadmoreWithNoMoreData();
+
+        void resetNoMoreData();
+
+        void finishRefresh(boolean success);
+
+        void setRefreshFooter(RefreshFooter footer);
+
+        void addData2RecyclerView(List<ShopModel> shopModels);
+
+
+
+
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -27,5 +45,9 @@ public interface HomeFragmentContract {
         List<Integer> getBannerImages();
 
         List<IconTitleModel> getIconTitleModels();
+
+        void onLoadMore();
+
+        void onRefresh();
     }
 }

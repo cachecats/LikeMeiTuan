@@ -1,4 +1,4 @@
-package com.cachecats.meituan.widget;
+package com.cachecats.meituan.widget.refresh;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
