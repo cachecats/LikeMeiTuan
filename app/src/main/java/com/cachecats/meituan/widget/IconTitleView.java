@@ -1,7 +1,6 @@
 package com.cachecats.meituan.widget;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cachecats.meituan.R;
-import com.cachecats.meituan.utils.GlideImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +19,7 @@ import butterknife.ButterKnife;
  * 上图片下标题的简单分模块布局自定义View
  */
 
-public class IconTitleView extends LinearLayout{
+public class IconTitleView extends LinearLayout {
 
     @BindView(R.id.iv_icon_title)
     ImageView iv;
@@ -47,18 +45,18 @@ public class IconTitleView extends LinearLayout{
 
     }
 
-    public static IconTitleView newInstance(Context context, int imageResource, String title){
+    public static IconTitleView newInstance(Context context, int imageResource, String title) {
         IconTitleView iconTitleView = new IconTitleView(context);
         iconTitleView.setImageView(imageResource);
         iconTitleView.setTitleText(title);
         return iconTitleView;
     }
 
-    private void setImageView(int drawable){
+    private void setImageView(int drawable) {
         Glide.with(context).load(drawable).into(iv);
     }
 
-    private void setTitleText(String title){
+    private void setTitleText(String title) {
         tv.setText(title);
     }
 }

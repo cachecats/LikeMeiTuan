@@ -6,6 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <!--下拉刷新组件-->
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefreshLayout_home"
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <!--Banner轮播条-->
                 <com.youth.banner.Banner
                     android:id="@+id/home_banner"
                     android:layout_width="match_parent"
@@ -51,11 +53,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp" />
 
+                <!--四个广告封装的自定义View-->
                 <com.cachecats.meituan.widget.HomeAdsView
                     android:id="@+id/home_ads_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+                <!--团购列表-->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_shops"
                     android:layout_width="match_parent"
