@@ -3,6 +3,7 @@ package com.cachecats.meituan.app.home;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +33,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -108,6 +112,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         initSmartRefreshLayout();
     }
 
+
     //初始化下拉刷新控件
     private void initSmartRefreshLayout() {
         smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(getActivity()));
@@ -125,6 +130,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
                 presenter.onRefresh();
             }
         });
+
+
     }
 
     @Override
