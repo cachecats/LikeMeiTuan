@@ -15,8 +15,10 @@
 
 同时为此项目写了四篇博客，详细记录了某些功能的具体开发过程。  
 
-[从零撸美团Android(一) - 统一管理 Gradle 依赖 提取到单独文件中](https://blog.csdn.net/solocoder/article/details/83685952)
+[从零撸美团Android(一) - 统一管理 Gradle 依赖 提取到单独文件中](https://juejin.im/post/5bdd26a6e51d4505231a3651)
 
-[仿美团下拉刷新自定义动画](https://blog.csdn.net/solocoder/article/details/83685973)
+[仿美团下拉刷新自定义动画](https://juejin.im/post/5bdd272a6fb9a049de6ccc69)
 
-[Android多标签tab滑动切换 - 自定义View快速实现高度定制封装](https://blog.csdn.net/solocoder/article/details/83685999)
+[Android多标签tab滑动切换 - 自定义View快速实现高度定制封装](https://juejin.im/post/5bdd27a5e51d452dfd0139e8)
+
+[美团首页布局解析及实现 - Banner+自定义View+SmartRefreshLayout下拉刷新上拉加载更多](https://juejin.im/post/5bdd282ee51d45053c74a8ff)
