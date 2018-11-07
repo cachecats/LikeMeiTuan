@@ -27,7 +27,8 @@
 
 以后有时间再继续写吧~   
 
-最新在写一个新项目，类似程序员客栈的程序员、设计师之间交流协作共同做项目平台。计划做成包含 pc端（Vue、React）、移动H5（Vue、React）、ReactNative混合开发、Android原生、微信小程序、java后端的全平台型全栈项目，欢迎关注。
+最新在写一个新项目，类似程序员客栈的程序员、设计师之间交流协作共同做项目平台。计划做成包含 pc端（Vue、React）、移动H5（Vue、React）、ReactNative混合开发、Android原生、微信小程序、java后端的全平台型全栈项目，欢迎关注。  
+
 项目地址：https://github.com/cachecats/coderiver
 
 ---
