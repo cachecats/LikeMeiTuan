@@ -23,7 +23,12 @@
 
 [Android从零撸美团(四) - 美团首页布局解析及实现 - Banner+自定义View+SmartRefreshLayout下拉刷新上拉加载更多](https://juejin.im/post/5bdd282ee51d45053c74a8ff)
 
+---
 
-以后有时间再继续写吧~  
-最新在写一个新项目，打算写完开源出来。   
+以后有时间再继续写吧~   
+
+最新在写一个新项目，类似程序员客栈的程序员、设计师之间交流协作共同做项目平台。计划做成包含 pc端、移动H5、ReactNative混合开发、Android原生、java后端的全平台型全栈项目，欢迎关注。  
+项目地址：https://github.com/cachecats/coderiver
+
+---
 感谢大家的支持~  
